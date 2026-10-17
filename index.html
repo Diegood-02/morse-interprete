@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intérprete Morse</title>
+  <meta name="description" content="Escribe en código morse con la barra espaciadora y ve la traducción en vivo." />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Intérprete <span>Morse</span></h1>
+      <p>Mantén la <kbd>barra espaciadora</kbd>: pulsación corta = punto, larga = raya.</p>
+    </header>
+
+    <section class="panel" aria-labelledby="live-title">
+      <h2 id="live-title" class="sr-only">Entrada con tecla</h2>
+
+      <button id="key" class="key" type="button" aria-label="Tecla de telégrafo. Usa la barra espaciadora">
+        <span class="key-top">ESPACIO</span>
+      </button>
+
+      <div class="live" aria-live="polite">
+        <div class="live-label">Letra en curso</div>
+        <div id="pending" class="pending">&nbsp;</div>
+      </div>
+
+      <div class="output">
+        <div class="output-label">Texto</div>
+        <div id="text" class="text" aria-live="polite"><span class="caret"></span></div>
+        <div class="output-label">Morse</div>
+        <div id="morse" class="morse"></div>
+      </div>
+
+      <div class="controls">
+        <label class="speed">
+          <span>Velocidad <strong id="wpm">10 WPM</strong></span>
+          <input id="speed" type="range" min="60" max="300" step="10" value="120" />
+          <small>Más lento ← → más rápido</small>
+        </label>
+        <div class="buttons">
+          <button id="backspace" type="button">Borrar última</button>
+          <button id="copy" type="button">Copiar</button>
+          <button id="clear" type="button" class="danger">Limpiar</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="enc-title">
+      <h2 id="enc-title">Texto → Morse</h2>
+      <textarea id="encIn" rows="2" placeholder="Escribe aquí un mensaje…"></textarea>
+      <div id="encOut" class="morse enc-out" aria-live="polite"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="ref-title">
+      <h2 id="ref-title">Tabla de referencia</h2>
+      <div id="chart" class="chart"></div>
+    </section>
+  </main>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
